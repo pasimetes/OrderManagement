@@ -19,9 +19,9 @@ namespace OrderManagement.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOrders()
+        public async Task<IActionResult> GetOrders(int pageNumber = 0, int pageSize = 20)
         {
-            var orders = await orderService.GetOrders();
+            var orders = await orderService.GetOrders(pageNumber, pageSize);
 
             return Ok(orders);
         }

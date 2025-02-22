@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using OrderManagement.Application.Abstractions.Dto;
+using OrderManagement.Application.Abstractions.Dto.Response;
 using OrderManagement.Application.Abstractions.Services;
 using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Exceptions;
@@ -27,8 +28,10 @@ namespace OrderManagement.Application.Services
             return product.ProductId;
         }
 
-        public async Task<ICollection<ProductDto>> SearchProducts(string searchQuery = "")
+        public async Task<PagedResponse<ProductDto>> SearchProducts(string searchQuery = "", int pageNumber = 0, int pageSize = 20)
         {
+            var totalRecords = await applicationDbContext.Products.CountAsync();
+
             var products = await applicationDbContext.Products
                 .Where(p => p.Name.Contains(searchQuery))
                 .Select(p
@@ -38,9 +41,17 @@ namespace OrderManagement.Application.Services
                         Price = p.Price,
                         ProductId = p.ProductId
                     })
+                .Skip(pageNumber * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            return products;
+            return new PagedResponse<ProductDto>
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Results = products,
+                TotalRecords = totalRecords
+            };
         }
 
         public async Task ApplyDiscount(int productId, decimal discountPercentage, int minimumQuantity)

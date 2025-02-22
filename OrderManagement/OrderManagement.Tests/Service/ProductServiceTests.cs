@@ -23,9 +23,9 @@ namespace OrderManagement.Tests.Service
 
             // Assert
             Assert.NotNull(products);
-            Assert.Contains(products, p => p.Name == "Telefonas");
-            Assert.Contains(products, p => p.Name == "Kompiuteris");
-            Assert.Contains(products, p => p.Name == "Televizorius");
+            Assert.Contains(products.Results, p => p.Name == "Telefonas");
+            Assert.Contains(products.Results, p => p.Name == "Kompiuteris");
+            Assert.Contains(products.Results, p => p.Name == "Televizorius");
         }
 
         [Fact]
@@ -36,9 +36,9 @@ namespace OrderManagement.Tests.Service
 
             // Assert
             Assert.NotNull(products);
-            Assert.Contains(products, p => p.Name == "Telefonas");
-            Assert.Contains(products, p => p.Name == "Televizorius");
-            Assert.DoesNotContain(products, p => p.Name == "Kompiuteris");
+            Assert.Contains(products.Results, p => p.Name == "Telefonas");
+            Assert.Contains(products.Results, p => p.Name == "Televizorius");
+            Assert.DoesNotContain(products.Results, p => p.Name == "Kompiuteris");
         }
 
         [Fact]

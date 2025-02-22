@@ -1,10 +1,11 @@
 ﻿using OrderManagement.Application.Abstractions.Dto;
+using OrderManagement.Application.Abstractions.Dto.Response;
 
 namespace OrderManagement.Application.Abstractions.Services
 {
     public interface IProductService
     {
-        Task<ICollection<ProductDto>> SearchProducts(string searchQuery = "");
+        Task<PagedResponse<ProductDto>> SearchProducts(string searchQuery = "", int pageNumber = 0, int pageSize = 20);
 
         Task<int> CreateProduct(string name, decimal price);
 

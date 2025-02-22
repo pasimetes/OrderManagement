@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrderManagement.Application.Abstractions.Dto;
+using OrderManagement.Application.Abstractions.Dto.Response;
 using OrderManagement.Application.Abstractions.Services;
 using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Exceptions;
@@ -9,8 +10,10 @@ namespace OrderManagement.Application.Services
 {
     public class OrderService(IApplicationDbContext applicationDbContext) : IOrderService
     {
-        public async Task<ICollection<OrderDto>> GetOrders()
+        public async Task<PagedResponse<OrderDto>> GetOrders(int pageNumber = 0, int pageSize = 20)
         {
+            var totalOrders = await applicationDbContext.Orders.CountAsync();
+
             var orders = await applicationDbContext.Orders
                 .Select(p
                     => new OrderDto
@@ -26,9 +29,17 @@ namespace OrderManagement.Application.Services
                                 })
                             .ToList()
                     })
+                .Skip(pageNumber * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            return orders;
+            return new PagedResponse<OrderDto>
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Results = orders,
+                TotalRecords = totalOrders
+            };
         }
 
         public async Task<Guid> CreateOrder(IDictionary<int, int> orderProducts)

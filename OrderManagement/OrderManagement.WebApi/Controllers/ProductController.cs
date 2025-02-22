@@ -30,9 +30,9 @@ namespace OrderManagement.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] string query = "")
+        public async Task<IActionResult> GetProducts([FromQuery] string query = "", int pageNumber = 0, int pageSize = 20)
         {
-            var products = await productService.SearchProducts(query);
+            var products = await productService.SearchProducts(query, pageNumber, pageSize);
 
             return Ok(products);
         }

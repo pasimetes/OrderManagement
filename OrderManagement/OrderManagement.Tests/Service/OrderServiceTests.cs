@@ -23,7 +23,7 @@ namespace OrderManagement.Tests.Service
 
             // Assert
             Assert.NotNull(orders);
-            Assert.True(orders.Count >= 2);
+            Assert.True(orders.Results.Count >= 2);
         }
 
         [Fact]
