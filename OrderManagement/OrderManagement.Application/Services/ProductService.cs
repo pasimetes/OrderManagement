@@ -30,7 +30,7 @@ namespace OrderManagement.Application.Services
 
         public async Task<PagedResponse<ProductDto>> SearchProducts(string searchQuery = "", int pageNumber = 0, int pageSize = 20)
         {
-            var totalRecords = await applicationDbContext.Products.CountAsync();
+            var totalProducts = await applicationDbContext.Products.CountAsync();
 
             var products = await applicationDbContext.Products
                 .Where(p => p.Name.Contains(searchQuery))
@@ -50,7 +50,7 @@ namespace OrderManagement.Application.Services
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 Results = products,
-                TotalRecords = totalRecords
+                TotalRecords = totalProducts
             };
         }
 

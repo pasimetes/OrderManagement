@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OrderManagement.Application;
 using OrderManagement.Persistence;
+using OrderManagement.Persistence.Abstractions;
 using OrderManagement.WebApi.Configurations;
 using OrderManagement.WebApi.Filters;
 using OrderManagement.WebApi.Middleware;
@@ -25,11 +27,8 @@ builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelS
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
