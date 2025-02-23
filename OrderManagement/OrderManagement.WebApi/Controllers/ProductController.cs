@@ -11,10 +11,7 @@ namespace OrderManagement.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto product)
         {
-            await productService.CreateProduct(
-                product.Name,
-                product.Price.GetValueOrDefault()
-                );
+            await productService.CreateProduct(product.Name, product.Price.GetValueOrDefault());
 
             return Created();
         }
@@ -22,11 +19,7 @@ namespace OrderManagement.WebApi.Controllers
         [HttpPut("{id}/discount")]
         public async Task<IActionResult> ApplyDiscount(int id, [FromBody] CreateDiscountDto discount)
         {
-            await productService.ApplyDiscount(
-                id,
-                discount.Percentage.GetValueOrDefault(),
-                discount.Quantity.GetValueOrDefault()
-                );
+            await productService.ApplyDiscount(id, discount.Percentage.GetValueOrDefault(), discount.Quantity.GetValueOrDefault());
 
             return NoContent();
         }

@@ -4,11 +4,9 @@ using System.Net;
 
 namespace OrderManagement.WebApi.Middleware
 {
-    public class ErrorHandlingMiddleware(RequestDelegate next,
-        ILogger<ErrorHandlingMiddleware> logger,
-        IWebHostEnvironment environment)
+    public class ErrorHandlingMiddleware(RequestDelegate next, IWebHostEnvironment environment)
     {
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, ILogger<ErrorHandlingMiddleware> logger)
         {
             var correlationId = context.Request.Headers["x-correlation-id"].FirstOrDefault() ?? Guid.NewGuid().ToString();
 
