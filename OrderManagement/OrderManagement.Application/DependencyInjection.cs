@@ -22,6 +22,7 @@ namespace OrderManagement.Application
             services.AddTransient<IValidator<CreateProductDto>, CreateProductValidator>();
             services.AddTransient<IValidator<CreateOrderDto>, CreateOrderValidator>();
             services.AddTransient<IValidator<CreateDiscountDto>, CreateDiscountValidator>();
+            services.AddTransient<IValidator<CreateOrderProductDto>, CreateOrderProductValidator>();
         }
     }
 }
