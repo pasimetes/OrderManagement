@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrderManagement.Application.Abstractions.Dto;
+using OrderManagement.Application.Abstractions.Dto.Request;
 using OrderManagement.Application.Abstractions.Services;
 
 namespace OrderManagement.WebApi.Controllers
@@ -19,9 +20,9 @@ namespace OrderManagement.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOrders(int pageNumber = 0, int pageSize = 20)
+        public async Task<IActionResult> GetOrders([FromQuery] PagedRequest request)
         {
-            var orders = await orderService.GetOrders(pageNumber, pageSize);
+            var orders = await orderService.GetOrders(request.PageNumber, request.PageSize);
 
             return Ok(orders);
         }
