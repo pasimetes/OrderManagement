@@ -12,7 +12,7 @@ namespace OrderManagement.Application.Validators
                 .WithMessage("Name is mandatory.");
 
             RuleFor(p => p.Price)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("Price is mandatory.")
                 .GreaterThanOrEqualTo(0)
                 .WithMessage("Price must be greater than or equal to 0.");
