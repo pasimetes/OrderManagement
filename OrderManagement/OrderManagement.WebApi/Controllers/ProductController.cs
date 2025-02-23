@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrderManagement.Application.Abstractions.Dto;
+using OrderManagement.Application.Abstractions.Dto.Request;
 using OrderManagement.Application.Abstractions.Services;
 
 namespace OrderManagement.WebApi.Controllers
@@ -11,9 +12,7 @@ namespace OrderManagement.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto product)
         {
-            await productService.CreateProduct(
-                product.Name,
-                product.Price);
+            await productService.CreateProduct(product.Name, product.Price.GetValueOrDefault());
 
             return Created();
         }
@@ -21,18 +20,15 @@ namespace OrderManagement.WebApi.Controllers
         [HttpPut("{id}/discount")]
         public async Task<IActionResult> ApplyDiscount(int id, [FromBody] CreateDiscountDto discount)
         {
-            await productService.ApplyDiscount(
-                id,
-                discount.Percentage,
-                discount.Quantity);
+            await productService.ApplyDiscount(id, discount.Percentage.GetValueOrDefault(), discount.Quantity.GetValueOrDefault());
 
             return NoContent();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] string query = "", int pageNumber = 0, int pageSize = 20)
+        public async Task<IActionResult> GetProducts([FromQuery] PagedRequest request)
         {
-            var products = await productService.SearchProducts(query, pageNumber, pageSize);
+            var products = await productService.SearchProducts(request.Query, request.PageNumber, request.PageSize);
 
             return Ok(products);
         }

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OrderManagement.Application;
 using OrderManagement.Persistence;
-using OrderManagement.Persistence.Abstractions;
 using OrderManagement.WebApi.Configurations;
 using OrderManagement.WebApi.Filters;
 using OrderManagement.WebApi.Middleware;
@@ -16,12 +14,11 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
     .AddEnvironmentVariables();
 
-builder.Services.AddValidators();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
+builder.Services.AddValidators();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>());
+builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 

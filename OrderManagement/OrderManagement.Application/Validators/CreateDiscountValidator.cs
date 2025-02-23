@@ -15,7 +15,7 @@ namespace OrderManagement.Application.Validators
 
             RuleFor(p => p.Percentage)
                 .NotEmpty()
-                .WithMessage("Percentage is mandatory.")
+                .WithMessage("Percentage is mandatory")
                 .GreaterThan(0)
                 .WithMessage("Percentage must be greater than 0.")
                 .LessThanOrEqualTo(100)

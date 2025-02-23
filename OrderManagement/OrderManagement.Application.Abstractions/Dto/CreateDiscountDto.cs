@@ -2,8 +2,8 @@
 {
     public class CreateDiscountDto
     {
-        public decimal Percentage { get; set; }
+        public decimal? Percentage { get; set; }
 
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
     }
 }

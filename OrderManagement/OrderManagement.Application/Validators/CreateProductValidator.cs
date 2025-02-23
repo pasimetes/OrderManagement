@@ -8,7 +8,8 @@ namespace OrderManagement.Application.Validators
         public CreateProductValidator()
         {
             RuleFor(p => p.Name)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("Name is mandatory.");
 
             RuleFor(p => p.Price)
                 .NotEmpty()
