@@ -14,7 +14,7 @@ namespace OrderManagement.Application.Validators
                     .Select(op => op.ProductId)
                     .Distinct()
                     .Count() == p.Count)
-                .WithMessage("Duplicate products are not allowed");
+                .WithMessage("Duplicate products are not allowed.");
 
             RuleForEach(p => p.Products)
                 .SetValidator(new CreateOrderProductValidator());

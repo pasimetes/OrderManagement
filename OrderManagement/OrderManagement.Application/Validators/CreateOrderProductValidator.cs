@@ -12,6 +12,8 @@ namespace OrderManagement.Application.Validators
                 .WithMessage("ProductId is mandatory.");
 
             RuleFor(p => p.Quantity)
+                .NotNull()
+                .WithMessage("Quantity is mandatory.")
                 .GreaterThan(0)
                 .WithMessage("Quantity must be greater than 0.");
         }

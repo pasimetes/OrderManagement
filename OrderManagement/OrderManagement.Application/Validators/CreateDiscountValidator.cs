@@ -8,14 +8,14 @@ namespace OrderManagement.Application.Validators
         public CreateDiscountValidator()
         {
             RuleFor(p => p.Quantity)
-                .NotEmpty()
+                .NotNull()
                 .WithMessage("Quantity is mandatory.")
                 .GreaterThan(0)
                 .WithMessage("Quantity must be greater than 0.");
 
             RuleFor(p => p.Percentage)
-                .NotEmpty()
-                .WithMessage("Percentage is mandatory.")
+                .NotNull()
+                .WithMessage("Percentage is mandatory")
                 .GreaterThan(0)
                 .WithMessage("Percentage must be greater than 0.")
                 .LessThanOrEqualTo(100)

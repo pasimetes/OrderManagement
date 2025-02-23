@@ -11,7 +11,7 @@ namespace OrderManagement.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto order)
         {
-            var orderProducts = order.Products.ToDictionary(k => k.ProductId, v => v.Quantity);
+            var orderProducts = order.Products.ToDictionary(k => k.ProductId, v => v.Quantity.GetValueOrDefault());
 
             await orderService.CreateOrder(orderProducts);
 
